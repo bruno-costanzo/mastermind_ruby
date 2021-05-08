@@ -83,4 +83,12 @@ module Display
   def congrats_display
     'Congrats! You broke the code!'
   end
+
+  def loser_display(code)
+    "You lose! The code was #{code}"
+  end
+
+  def play_again_msg
+    puts "Ready to play? 'q' to quit. Any other key to continue"
+  end
 end

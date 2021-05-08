@@ -76,7 +76,7 @@ class GuessMode
   end
 
   def win_or_lose(tries)
-    puts tries.zero? ? loser_display : congrats_display
+    puts tries.zero? ? loser_display(@code) : congrats_display
   end
 
   def new_try
