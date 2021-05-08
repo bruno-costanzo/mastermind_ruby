@@ -53,7 +53,7 @@ module Display
 
   # This method shows the clues to console. It receives the correct answers and the ones that appear but not in position
   def clues_print(correct, almost)
-    print "   " # This is just to be more elegant in the way you show up the clues.
+    print '   ' # This is just to be more elegant in the way you show up the clues.
     correct.times do
       print clue_colors('*')
     end
@@ -78,5 +78,9 @@ module Display
   # A msg for the usser to remember how to enter the try
   def display_valid_input_msg
     'Rembember: Your code must to be four digits long, with every digit between 1-6 (both included)'
+  end
+
+  def congrats_display
+    'Congrats! You broke the code!'
   end
 end

@@ -14,6 +14,7 @@ class GuessMode
     @player_guess = nil
     @number_of_tries = MAX_TRIES
     @user_code_try = nil
+    @logics = nil
   end
 
   def play
@@ -45,7 +46,9 @@ class GuessMode
     4.times do
       @code += rand(1..6).to_s
     end
+    @logics = Logics.new(@code)
     code_created
+    @code
   end
 
   # The code was created succesfully
@@ -56,21 +59,29 @@ class GuessMode
 
   # The player have 12 tries to win
   def run_guess
-    until @number_of_tries.zero? || win?
+    try_result = [nil]
+    until @number_of_tries.zero? || win?(try_result[0])
       new_try
+      try_result = @logics.evaluate_try(@user_code_try)
+      numbers_colored(@user_code_try)
+      clues_print(try_result[0].to_i, try_result[1].to_i)
       @number_of_tries -= 1
     end
+    win_or_lose(@number_of_tries)
   end
 
   # Check if the player wins
-  def win?
-    @user_code_try == @code
+  def win?(corrects)
+    corrects == 4
+  end
+
+  def win_or_lose(tries)
+    puts tries.zero? ? loser_display : congrats_display
   end
 
   def new_try
     puts new_try_msg(@number_of_tries)
     user_try
-    numbers_colored(@user_code_try)
   end
 
   # get the code from the user. It valitades that is 4 digit long and with every number between 1-6
