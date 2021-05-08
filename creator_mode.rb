@@ -1,6 +1,1 @@
-class GuessMode
-  def initialize
-    @code = nil
-    @player_guess = nil
-  end
-end
+# frozen_string_literal: true

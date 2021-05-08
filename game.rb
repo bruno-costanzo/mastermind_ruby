@@ -18,6 +18,7 @@ class Game
 
   def play
     set_up_game
+    play_mode(@rol)
   end
 
   private
@@ -25,7 +26,6 @@ class Game
   def set_up_game
     puts display_welcome
     rol_picker
-    puts code_colors("1")
   end
 
   def rol_picker
@@ -38,5 +38,10 @@ class Game
     entry = gets.chomp
     @rol = 'Creator' if entry == '1'
     @rol = 'Guesser' if entry == '2'
+  end
+
+  def play_mode(rol)
+    @mode = rol == 1 ? CreatorMode.new : GuessMode.new
+    @mode.play
   end
 end
