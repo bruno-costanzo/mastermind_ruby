@@ -89,6 +89,16 @@ module Display
   end
 
   def play_again_msg
-    puts "Ready to play? 'q' to quit. Any other key to continue"
+    puts "Ready to play? Press any key to continue and 'q' to quit."
+  end
+
+  # CreatorMode display methods
+
+  def creator_mode_welcome
+    "Welcome to Creator Mode. \nYou have to think a 4 digit code and the computer will try to figure it out!"
+  end
+
+  def enter_code_msg
+    'Enter the code: '
   end
 end
