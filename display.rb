@@ -77,7 +77,7 @@ module Display
 
   # A msg for the usser to remember how to enter the try
   def display_valid_input_msg
-    'Rembember: Your code must to be four digits long, with every digit between 1-6 (both included)'
+    'Your code must to be four digits long, with every digit between 1-6 (both included)'
   end
 
   def congrats_display
@@ -99,6 +99,10 @@ module Display
   end
 
   def enter_code_msg
-    'Enter the code: '
+    puts 'Enter the code: '
+  end
+
+  def code_created_msg(code)
+    "Great! Your code is: #{code}. \nNow the computer will try to guess it"
   end
 end

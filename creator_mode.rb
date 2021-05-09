@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'display'
+require_relative 'computer'
 
 # In the Creator Mode, you made a code and the computer try to guess it
 class CreatorMode
@@ -9,8 +10,7 @@ class CreatorMode
   include Display
 
   def initialize
-    @computer = nil
-    @player = nil
+    @computer = Computer.new
     @code = nil
   end
 
@@ -21,12 +21,13 @@ class CreatorMode
   def set_up_mode
     puts creator_mode_welcome
     code_creator
+    puts code_created_msg(@code)
+    @computer.think
   end
 
   def code_creator
     @code = '0000'
     puts enter_code_msg
-    puts @code
     @code = gets.chomp until valid_input_msg && valid_digits(@code) && @code.size == 4
   end
 
