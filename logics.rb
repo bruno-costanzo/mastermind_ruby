@@ -12,9 +12,9 @@ class Logics
     @almost = 0
   end
 
-  def evaluate_try(user_code)
-    @corrects = check_correct(@code, user_code)
-    @almost = check_almost(@code, user_code)
+  def evaluate_try(user_code, code = @code)
+    @corrects = check_correct(code, user_code)
+    @almost = check_almost(code, user_code)
     [@corrects, @almost]
   end
 

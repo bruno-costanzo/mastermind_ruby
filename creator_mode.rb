@@ -29,7 +29,7 @@ class CreatorMode
     @code = '0000'
     puts enter_code_msg
     @code = gets.chomp until valid_input_msg && valid_digits(@code) && @code.size == 4
-    @computer.code = @code
+    @computer.code = @code.to_i
   end
 
   def valid_digits(code)

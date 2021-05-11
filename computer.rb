@@ -1,77 +1,57 @@
 # frozen_string_literal: true
 
-require_relative 'display'
 require_relative 'logics'
+require_relative 'display'
 
-# The computer try to guess the answer
+# The computer brokes the code less than five attemps.
 class Computer
   attr_accessor :code
 
   include Display
 
   def initialize
+    @pos_res = ((1..6).to_a * 4).permutation(4).to_a.uniq.map! { |el| el.join.to_i }
     @code = nil
-    @try = nil
+    @try = 1122
     @flags = nil
-    @logics = Logics.new
-    @somewhere = []
     @tries = 12
+    @logics = Logics.new
   end
 
   def start_thinking
-    @logics.code = @code
+    @logics.code = @code.to_s
     puts breaker ? well_broke : "The computer has lose! The code was #{@code}"
   end
 
   def well_broke
-    puts numbers_colored(@code)
-    "The computer brokes your code #{@code}"
+    print_try(@try, [4, 0])
+    "The computer has won. Your code was: #{@code.to_s}"
   end
 
-  def breaker
-    @try = '1111'
-    @flags = @logics.evaluate_try(@try)
-    until broke?(@code, @try) || @tries.zero?
-      sleep(1)
-      try_thinker(@flags, @logics.evaluate_try(@try))
-      @tries -= 1
-    end
-    @tries.positive?
-  end
-
-  def try_thinker(old_flags, new_flags)
-    numbers_colored(@try)
-    clues_print(new_flags[0].to_i, new_flags[1].to_i)
-    @try = think_harder(old_flags, new_flags)
-  end
-
-  def think_harder(old_flags, new_flags)
-    if new_flags.sum.zero?
-      @try = (@try.to_i + 1111).to_s
-    elsif new_flags.sum == 4
-      @try = arrange_elements(@try)
-    elsif old_flags.sum == new_flags.sum
-      @try = (@try.to_i + 1).to_s
-    elsif old_flags.sum < new_flags.sum
-      (new_flags.sum - old_flags.sum).times do
-        @somewhere << @try[3]
-      end
-      @try = function_super(@try, @somewhere)
-    end
-    @flags = new_flags
-    @try
-  end
-
-  def function_super(try, somewhere)
-    somewhere.join + try[somewhere.join.length..2] + try.split('')[3]
-  end
-
-  def arrange_elements(try)
-    posibilities = try.split('').permutation(4).to_a.uniq
-    posibilities.sample.join
+  def print_try(try, flags)
+    numbers_colored(try.to_s)
+    clues_print(flags[0], flags[1])
   end
 
   def broke?(code, try)
     code == try
+  end
+
+  def filtering_by_flags(flags)
+    @pos_res = @pos_res.select do |possible_result|
+      @logics.evaluate_try(possible_result.to_s, @try.to_s) == flags
+    end
+    @try = @pos_res.sample
+  end
+
+  def breaker
+    until broke?(@code, @try) || @tries.zero?
+      @flags = @logics.evaluate_try(@try.to_s)
+      print_try(@try, @flags)
+      sleep(1)
+      filtering_by_flags(@flags)
+      @tries -= 1
+    end
+    @tries.positive?
   end
 end
