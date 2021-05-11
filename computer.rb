@@ -20,7 +20,12 @@ class Computer
 
   def start_thinking
     @logics.code = @code
-    puts breaker ? "The computer broke your code #{@code}" : "The computer has lose! The code was #{@code}"
+    puts breaker ? well_broke : "The computer has lose! The code was #{@code}"
+  end
+
+  def well_broke
+    puts numbers_colored(@code)
+    print "the computer brokes your code #{@code}"
   end
 
   def breaker
