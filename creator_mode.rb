@@ -22,13 +22,14 @@ class CreatorMode
     puts creator_mode_welcome
     code_creator
     puts code_created_msg(@code)
-    @computer.think
+    @computer.start_thinking
   end
 
   def code_creator
     @code = '0000'
     puts enter_code_msg
     @code = gets.chomp until valid_input_msg && valid_digits(@code) && @code.size == 4
+    @computer.code = @code
   end
 
   def valid_digits(code)

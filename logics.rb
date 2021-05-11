@@ -4,7 +4,9 @@ require_relative 'display'
 
 # This module is for the computer logics
 class Logics
-  def initialize(code)
+  attr_accessor :code
+
+  def initialize(code = nil)
     @code = code
     @corrects = 0
     @almost = 0
@@ -25,13 +27,6 @@ class Logics
     end
     result
   end
-
-  # user_code.each do |digit|
-  #   if code.count(digit) != 0
-  #     result += 1
-  #     code[code.index(digit)] = "x"
-  #   end
-  # end
 
   def check_almost(code, user_code)
     result = 0

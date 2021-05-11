@@ -8,4 +8,5 @@ require_relative 'creator_mode'
 require_relative 'logics'
 
 new_game = Game.new
+
 new_game.play
