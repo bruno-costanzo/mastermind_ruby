@@ -25,7 +25,7 @@ class Computer
 
   def well_broke
     puts numbers_colored(@code)
-    print "the computer brokes your code #{@code}"
+    "The computer brokes your code #{@code}"
   end
 
   def breaker
